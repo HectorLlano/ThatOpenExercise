@@ -1,0 +1,17 @@
+body {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-areas: 'sidebar content';
+    height: 100vh;
+    background-color: #202124;
+    color: #ffffff;
+    margin: 0;
+}
+
+#sidebar {
+    background-color: #26282b;
+}
+
+#content {
+    
+}
