@@ -9,9 +9,13 @@
     --background: #202124;
     --background-100: #26282b;
     --background-200: #3b3c3f;
-    --font-small: 10px;
-    --font-medium: 14px;
-    --font-large: 24px;
+    --font-xs: 10px;
+    --font-sm: 12px;
+    --font-base: 14px;
+    --font-lg: 16px;
+    --font-xl: 18px;
+    --font-2xl: 20px;
+    --font-3xl: 22px;
 }
 
 * {
@@ -31,13 +35,29 @@ body {
 
 /* General Styles */
 
+h2 {
+    font-size: var(--font-3xl);
+}
+
+h3 {
+    font-size: var(--font-2xl);
+}
+
+h4 {
+    font-size: var(--font-xl);
+}
+
+h5 {
+    font-size: var(--font-lg);
+}
+
 button {
     display: flex;
     align-items: center;
     padding: 8px 15px;
     cursor: pointer;
     height: 40px;
-    font-size: var(--font-medium);
+    font-size: var(--font-base);
     background-color: var(--primary);
     color: white;
     border-radius: 100px;
@@ -74,7 +94,7 @@ button:hover {
     list-style-type: none;
     padding: 15px;
     border-radius: 10px;
-    font-size: var(--font-medium);
+    font-size: var(--font-base);
     cursor: pointer;
 }
 
@@ -97,4 +117,135 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+#projects-list {
+    padding: 20px 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+    grid-template-rows: repeat(5, 1fr);
+}
+
+.project-card {
+    background-color: var(--background-100);
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.project-card:hover {
+    outline: 2px solid var(--primary);
+}
+
+.card-header {
+    display: flex;
+    column-gap: 20px;
+    padding: 15px 20px;
+    align-items: center;
+    justify-content: start;
+    border-bottom: 2px solid var(--background-200);
+    height: 60px;
+}
+
+.card-content {
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    align-items: start;
+}
+
+.card-property {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* Form Styles */
+
+dialog {
+    background-color: transparent;
+    border: none;
+    margin: auto;
+}
+
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+}
+
+form {
+    width: 450px;
+    border-radius: 10px;
+    background-color: var(--background-100);
+    color: white;
+}
+
+form h2 {
+    padding: 20px;
+    border-bottom: 2px solid var(--background-200);
+}
+
+form .input-list {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    row-gap: 25px;
+}
+
+form .form-field-container {
+    display: flex;
+    flex-direction: column;
+}
+
+label, .input-tip {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: var(--font-base);
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: rgba(150, 150, 150, 1);
+}
+
+.input-tip {
+    font-style: italic;
+    color: rgba(150, 150, 150, 0.5);
+}
+
+input, textarea, select {
+    color: white;
+    background-color: var(--background-200);
+    padding: 15px;
+    border-radius: 8px;
+    border: none;
+    font-size: var(--font-base);
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: 2px solid var(--primary);
+}
+
+#form-buttons {
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+    padding: 20px;
+}
+
+.cancel-button {
+    background-color: transparent;
+}
+
+.cancel-button:hover {
+    background-color: rgb(199, 44, 44);
+}
+
+.accept-button {
+    background-color: rgb(42, 148, 42);
+}
+
+.accept-button:hover {
+    background-color: rgb(73, 167, 73);
 }

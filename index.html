@@ -18,6 +18,56 @@
         </ul>
     </aside>
     <main id="content">
+        <dialog id="new-project-modal">
+            <form action="">
+                <h2>New Project</h2>
+                <div class="input-list">
+                    <div class="form-field-container">
+                        <label for=""><span class="material-symbols-rounded">
+                            apartment
+                            </span>Name</label>
+                        <input type="text" placeholder="Riverfront Promenade">
+                        <p class="input-tip">Tip: Give it a short name</p>
+                    </div>
+                    <div class="form-field-container">
+                        <label for=""><span class="material-symbols-rounded">
+                            subject
+                            </span>Description</label>
+                        <textarea name="" id="" cols="30" rows="5" placeholder="Give you a description"></textarea>
+                    </div>
+                    <div class="form-field-container">
+                        <label for=""><span class="material-symbols-rounded">
+                            account_circle
+                            </span>Role</label>
+                        <select name="" id="">
+                            <option value="">Architect</option>
+                            <option value="">Engineer</option>
+                            <option value="">Developer</option>
+                        </select>
+                    </div>
+                    <div class="form-field-container">
+                        <label for=""><span class="material-symbols-rounded">
+                            not_listed_location
+                            </span>Status</label>
+                        <select name="" id="">
+                            <option value="">Pending</option>
+                            <option value="">Active</option>
+                            <option value="">Finished</option>
+                        </select>
+                    </div>
+                    <div class="form-field-container">
+                        <label for=""><span class="material-symbols-rounded">
+                            calendar_month
+                            </span>Finish Date</label>
+                        <input type="date">
+                    </div>
+                </div>
+                <div id="form-buttons">
+                    <button class= "cancel-button">Cancel</button>
+                    <button class="accept-button">Accept</button>
+                </div>
+            </form>
+        </dialog>
         <header id="page-header">
             <h2>Projects</h2>
             <div>
@@ -27,7 +77,44 @@
             </div>
         </header>
         <div id="projects-list">
-            <div></div>
+            <div class="project-card">
+                <div class="card-header">
+                    <p style="background-color: #ca8134; padding: 10px; border-radius: 8px; aspect-ratio: 1;">HC</p>
+                    <div>
+                        <h5>Project Name</h5>
+                        <p>Project Description Goes Here...</p>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-property">
+                        <p style="color: #969696;">Status</p>
+                        <p>Active</p>
+                    </div>
+                    <div class="card-property">
+                        <p style="color: #969696;">Status</p>
+                        <p>Active</p>
+                    </div>
+                    <div class="card-property">
+                        <p style="color: #969696;">Status</p>
+                        <p>Active</p>
+                    </div>
+                    <div class="card-property">
+                        <p style="color: #969696;">Status</p>
+                        <p>Active</p>
+                    </div>
+                    <div class="card-property">
+                        <p style="color: #969696;">Status</p>
+                        <p>Active</p>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card"></div>
+            <div class="project-card"></div>
+            <div class="project-card"></div>
+            <div class="project-card"></div>
+            <div class="project-card"></div>
+            <div class="project-card"></div>
+            <div class="project-card"></div>
         </div>
     </main>
 </body>
