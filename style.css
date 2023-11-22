@@ -295,3 +295,27 @@ input:focus, textarea:focus, select:focus {
 .todo-item:hover {
     background-color: var(--primary);
 }
+
+/* People List */
+#people-list {
+    padding: 20px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#user-image {
+    background-color: #d6d6d6;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+
+.user-card {
+    background-color: var(--background-200);
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+}

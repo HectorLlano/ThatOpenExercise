@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <!-- SideBar Structure -->
     <aside id="sidebar">
       <img
         id="company-logo"
@@ -23,8 +24,11 @@
         </li>
       </ul>
     </aside>
+    <!-- Content Structure -->
     <main id="content">
+      <!-- Project List Page -->
       <div class="page" id="projects-page" style="display: none">
+        <!-- Form for new project -->
         <dialog id="new-project-modal">
           <form action="">
             <h2>New Project</h2>
@@ -87,6 +91,7 @@
             </div>
           </form>
         </dialog>
+        <!-- Project List Page Header -->
         <header id="page-header">
           <h2>Projects</h2>
           <div>
@@ -95,6 +100,7 @@
             </button>
           </div>
         </header>
+        <!-- Project List -->
         <div id="projects-list">
           <div class="project-card">
             <div class="card-header">
@@ -145,15 +151,19 @@
           <div class="project-card"></div>
         </div>
       </div>
-      <div class="page" id="project-details">
+      <!-- Project Details Page -->
+      <div class="page" id="project-details" style="display: none;">
+        <!-- Project Details Page Header -->
         <header>
           <div>
             <h2>Hospital Center</h2>
             <p style="color: #969696">Community hospital location</p>
           </div>
         </header>
+        <!-- Project Details Container -->
         <div class="main-page-content">
-            <div style="display: flex; flex-direction: column; row-gap: 30px;">
+          <!-- Project Details -->
+          <div style="display: flex; flex-direction: column; row-gap: 30px;">
                 <div class="dashboard-card" style="padding: 30px 0;">
                   <div style="display: flex; justify-content: space-between; align-items: center; padding: 0px 30px; margin-bottom: 30px;">
                     <p style="font-size: 20px; background-color: #ca8134; aspect-ratio: 1; border-radius: 100%; padding: 12px;">HC</p>
@@ -212,8 +222,70 @@
                     </div>
                   </div>
                 </div>
-              </div>
+            </div>
+          <!-- Project Viewer -->
           <div id="viewer-container" class="dashboard-card"></div>
+        </div>
+      </div>
+      <!-- People Page -->
+      <div class="page" id="people-page">
+        <!-- People Header -->
+        <header id="page-header">
+          <h2>Users</h2>
+          <div>
+            <button>
+              <span class="material-symbols-rounded"> add </span>New User
+            </button>
+          </div>
+        </header>
+        <!-- People List -->
+        <div id="people-list">
+          <!-- Form for new user -->
+          <dialog id="new-user-modal">
+            <form action="">
+              <h2>New User</h2>
+              <div class="input-list">
+                <div class="form-field-container">
+                  <label for=""><span class="material-symbols-rounded">person</span>Name</label>
+                <input type="text" placeholder="Name and Surname" />
+              </div>
+              <div class="form-field-container">
+                <label for=""
+                  ><span class="material-symbols-rounded"> account_circle </span>Role</label>
+                <select name="" id="">
+                  <option value="">Architect</option>
+                  <option value="">Engineer</option>
+                  <option value="">Developer</option>
+                </select>
+              </div>
+            </div>
+            <div id="form-buttons">
+              <button class="cancel-button">Cancel</button>
+              <button class="accept-button">Accept</button>
+            </div>
+          </form>
+        </dialog>
+          <!-- People Card -->
+          <div class="user-card">
+            <div style="display: flex; align-items: center; gap: 20px;">
+              <div id="user-image"></div>
+              <h4>Name and Surname</h4>
+            </div>
+            <p>5 Projects</p>
+            <p>Role</p>
+            <p>Date</p>
+            <span class="material-symbols-rounded" style="cursor: pointer;">more_vert</span>
+          </div>
+          <div class="user-card">
+            <div style="display: flex; align-items: center; gap: 20px;">
+              <div id="user-image"></div>
+              <h4>Name and Surname</h4>
+            </div>
+            <p>5 Projects</p>
+            <p>Role</p>
+            <p>Date</p>
+            <span class="material-symbols-rounded" style="cursor: pointer;">more_vert</span>
+          </div>
         </div>
       </div>
     </main>
