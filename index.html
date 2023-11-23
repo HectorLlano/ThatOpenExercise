@@ -20,17 +20,22 @@
       />
       <ul id="nav-buttons">
         <li>
-          <span class="material-symbols-rounded"> apartment </span>Projects
+          <span class="material-symbols-rounded"> apartment </span>
+          Projects
+        </li>
+        <li>
+          <span class="material-symbols-rounded">group</span>
+          Users
         </li>
       </ul>
     </aside>
     <!-- Content Structure -->
     <main id="content">
       <!-- Project List Page -->
-      <div class="page" id="projects-page" style="display: none">
+      <div class="page" id="projects-page">
         <!-- Form for new project -->
         <dialog id="new-project-modal">
-          <form action="">
+          <form action="" id="new-project-form">
             <h2>New Project</h2>
             <div class="input-list">
               <div class="form-field-container">
@@ -38,7 +43,7 @@
                   ><span class="material-symbols-rounded"> apartment </span
                   >Name</label
                 >
-                <input type="text" placeholder="Riverfront Promenade" />
+                <input name="name" type="text" placeholder="Riverfront Promenade" />
                 <p class="input-tip">Tip: Give it a short name</p>
               </div>
               <div class="form-field-container">
@@ -47,7 +52,7 @@
                   >Description</label
                 >
                 <textarea
-                  name=""
+                  name="description"
                   id=""
                   cols="30"
                   rows="5"
@@ -59,7 +64,7 @@
                   ><span class="material-symbols-rounded"> account_circle </span
                   >Role</label
                 >
-                <select name="" id="">
+                <select name="userRole" id="">
                   <option value="">Architect</option>
                   <option value="">Engineer</option>
                   <option value="">Developer</option>
@@ -71,7 +76,7 @@
                     not_listed_location </span
                   >Status</label
                 >
-                <select name="" id="">
+                <select name="status" id="">
                   <option value="">Pending</option>
                   <option value="">Active</option>
                   <option value="">Finished</option>
@@ -82,7 +87,7 @@
                   ><span class="material-symbols-rounded"> calendar_month </span
                   >Finish Date</label
                 >
-                <input type="date" />
+                <input name="finishDate" type="date" />
               </div>
             </div>
             <div id="form-buttons">
@@ -95,7 +100,7 @@
         <header id="page-header">
           <h2>Projects</h2>
           <div>
-            <button>
+            <button id="new-project-btn">
               <span class="material-symbols-rounded"> add </span>Add project
             </button>
           </div>
@@ -104,14 +109,7 @@
         <div id="projects-list">
           <div class="project-card">
             <div class="card-header">
-              <p
-                style="
-                  background-color: #ca8134;
-                  padding: 10px;
-                  border-radius: 8px;
-                  aspect-ratio: 1;
-                "
-              >
+              <p style="background-color: #ca8134; padding: 10px; border-radius: 8px; aspect-ratio: 1;">
                 HC
               </p>
               <div>
@@ -125,30 +123,19 @@
                 <p>Active</p>
               </div>
               <div class="card-property">
-                <p style="color: #969696">Status</p>
-                <p>Active</p>
+                <p style="color: #969696">Role</p>
+                <p>Architect</p>
               </div>
               <div class="card-property">
-                <p style="color: #969696">Status</p>
-                <p>Active</p>
+                <p style="color: #969696">Cost</p>
+                <p>$0</p>
               </div>
               <div class="card-property">
-                <p style="color: #969696">Status</p>
-                <p>Active</p>
-              </div>
-              <div class="card-property">
-                <p style="color: #969696">Status</p>
-                <p>Active</p>
+                <p style="color: #969696">Estimated Progress</p>
+                <p>80%</p>
               </div>
             </div>
           </div>
-          <div class="project-card"></div>
-          <div class="project-card"></div>
-          <div class="project-card"></div>
-          <div class="project-card"></div>
-          <div class="project-card"></div>
-          <div class="project-card"></div>
-          <div class="project-card"></div>
         </div>
       </div>
       <!-- Project Details Page -->
@@ -228,7 +215,7 @@
         </div>
       </div>
       <!-- People Page -->
-      <div class="page" id="people-page">
+      <div class="page" id="people-page" style="display: none">
         <!-- People Header -->
         <header id="page-header">
           <h2>Users</h2>
@@ -289,5 +276,6 @@
         </div>
       </div>
     </main>
+    <script src="./index.js"></script>
   </body>
 </html>
