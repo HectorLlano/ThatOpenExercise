@@ -1,42 +1,39 @@
 import { IProject, ProjectStatus, UserRole } from "./class/Project.ts"
 import { ProjectsManager } from "./class/ProjectsManager.ts"
 
-function showModal(id: string) {
-    const modal = document.getElementById(id)
-
-    if(modal && modal instanceof HTMLDialogElement) {
-        modal.showModal()
-    } else {
-        console.warn("The provided modal wasn't found. ID: ", id);
-    }
-}
-
-function closeModal(id: string) {
-    const modal = document.getElementById(id)
-
-    if(modal && modal instanceof HTMLDialogElement) {
-        modal.close()
-    } else {
-        console.warn("The provided modal wasn't found. ID: ", id);
-    }
-}
-
 // create a toggleModal function
-function toggleModal() {
+function toggleModal(id: string) {
+    const modal = document.getElementById(id)
 
+    if(modal && modal instanceof HTMLDialogElement) {
+        if(!modal.open) {
+            modal.showModal()
+        } else {
+            modal.close()
+        }
+    } else {
+        console.warn("Modal Id ", id, " not found")
+    }
 }
-
-//Close de modal when the cancel button is clecked
-
-// Delete the default project card in the UI and create the default project from code
 
 const projectListUI = document.getElementById("projects-list") as HTMLElement
 const projectsManager = new ProjectsManager(projectListUI)
 
+// Create the default project from code
+const defaultProjectData: IProject = {
+    name: "Default Project Name" as string,
+    description: "Default description" as string,
+    status: "Active" as ProjectStatus,
+    userRole: "Architect" as UserRole,
+    finishDate: new Date("13/03/2024" as string)
+}
+
+projectsManager.newProject(defaultProjectData)
+
 const newProjectBtn = document.getElementById("new-project-btn")
 
 if(newProjectBtn) {
-    newProjectBtn.addEventListener("click", () => {showModal("new-project-modal")})
+    newProjectBtn.addEventListener("click", () => {toggleModal("new-project-modal")})
 } else {
     console.warn("New projects button was not found");
 }
@@ -59,9 +56,15 @@ if(projectForm && projectForm instanceof HTMLFormElement) {
         const project = projectsManager.newProject(projectData)
         projectForm.reset()
 
-        closeModal("new-project-modal")
+        toggleModal("new-project-modal")
 
     })
+
+    const cancelButton = document.getElementById("form-cancel-button") as HTMLButtonElement
+
+    if(cancelButton){
+        cancelButton.addEventListener("click", () => {toggleModal("new-project-modal")})
+    }
 } else {
     console.warn("The project form was not found. Check the ID!");
 }
