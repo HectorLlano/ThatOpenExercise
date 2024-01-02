@@ -96,10 +96,24 @@
             </div>
           </form>
         </dialog>
+        <!-- Alert message -->
+        <dialog id="alert-dialog-message">
+          <div class="alert-popup">
+            <div class="alert-message">
+              <h2>WARNING</h2>
+              <p>message</p>
+            </div>
+            <div class="alert-buttons">
+              <button type="" id="alert-submit-button">Accept</button>
+            </div>
+          </div>
+        </dialog>
         <!-- Project List Page Header -->
         <header id="page-header">
           <h2>Projects</h2>
-          <div>
+          <div style="display: flex; align-items: center; column-gap: 15px;">
+            <span id="import-projects-btn" class="material-symbols-rounded action-icon">upload</span>
+            <span id="export-projects-btn" class="material-symbols-rounded action-icon">download</span>
             <button id="new-project-btn">
               <span class="material-symbols-rounded"> add </span>Add project
             </button>

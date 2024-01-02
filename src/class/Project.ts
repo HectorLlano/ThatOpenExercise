@@ -26,14 +26,13 @@ export class Project implements IProject {
     progress: number = 0
     id: string
 
+    //Constructor
     constructor(data: IProject) {
 
         //Project Data Definition
-        this.name = data.name
-        this.description = data.description
-        this.status = data.status
-        this.userRole = data.userRole
-        this.finishDate = data.finishDate
+        for(const key in data) {
+            this[key] = data[key]
+        }
 
         this.id = uuidv4()
 
@@ -41,10 +40,13 @@ export class Project implements IProject {
 
     }
 
+    //Defining the method to create the card UI
     setUI() {
         
+        //Este if statement previene que se ejecute el código si ya se ha creado una project card en la pagina
         if(this.ui) {return}
 
+        //Crea el project card en la pagina
         this.ui = document.createElement("div")
         this.ui.className = "project-card"
         this.ui.innerHTML = `

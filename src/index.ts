@@ -1,7 +1,7 @@
 import { IProject, ProjectStatus, UserRole } from "./class/Project.ts"
 import { ProjectsManager } from "./class/ProjectsManager.ts"
 
-// create a toggleModal function
+// Create a toggleModal function
 function toggleModal(id: string) {
     const modal = document.getElementById(id)
 
@@ -53,11 +53,27 @@ if(projectForm && projectForm instanceof HTMLFormElement) {
             finishDate: new Date(formData.get("finishDate") as string)
         }
 
-        const project = projectsManager.newProject(projectData)
-        projectForm.reset()
+        try {
+            const project = projectsManager.newProject(projectData)
+            projectForm.reset()
+    
+            toggleModal("new-project-modal")
+        } catch (err) {
+            toggleModal("alert-dialog-message")
 
-        toggleModal("new-project-modal")
+            const alertDialogMessage = document.getElementById("alert-dialog-message")
 
+            if(alertDialogMessage && alertDialogMessage instanceof HTMLDialogElement) {
+
+                const alertButton = document.getElementById("alert-submit-button") as HTMLButtonElement
+                alertButton.addEventListener("click", () => {
+                    toggleModal("alert-dialog-message")
+                    console.log("ok")
+                })
+            }
+            
+            //window.alert(err)
+        }
     })
 
     const cancelButton = document.getElementById("form-cancel-button") as HTMLButtonElement
@@ -67,4 +83,20 @@ if(projectForm && projectForm instanceof HTMLFormElement) {
     }
 } else {
     console.warn("The project form was not found. Check the ID!");
+}
+
+//Ejecuta el exportado del los proyectos al hacer click en el icono
+const exportProjectBtn = document.getElementById("export-projects-btn")
+if(exportProjectBtn) {
+    exportProjectBtn.addEventListener("click", () => {
+        projectsManager.exportToJSON()        
+    })
+}
+
+//Ejecuta el importado de un archivo json cuando se hace click en el icono
+const importProjectsBtn = document.getElementById("import-projects-btn")
+if(importProjectsBtn) {
+    importProjectsBtn.addEventListener("click", () => {
+        projectsManager.importFromJSON()
+    })
 }

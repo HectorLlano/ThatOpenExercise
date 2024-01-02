@@ -9,6 +9,13 @@ export class ProjectsManager {
     }
 
     newProject(data: IProject) {
+        const projectNames = this.list.map((project) => {
+            return project.name
+        })
+        const nameInUse = projectNames.includes(data.name)
+        if(nameInUse) {
+            throw new Error(`A project with the name "${data.name}" already exists`)
+        }
         const project = new Project(data)
         this.ui.append(project.ui)
         this.list.push(project)
@@ -28,7 +35,7 @@ export class ProjectsManager {
         })
     }
 
-    totalCost() {
+    totalProjectsCost() {
         let totalProjectsCost: number = 0
 
         this.list.forEach((project) => {
@@ -50,7 +57,44 @@ export class ProjectsManager {
         this.list = remaining
     }
 
-    exportToJSON() {}
+    exportToJSON(filename: string = "projects") {
+        function replacer(key: string, value: string) {
+            if(key === "ui") {return undefined}
+            return value
+        }
+        const json = JSON.stringify(this.list, replacer, 2)
+        const blob = new Blob([json], { type: 'application/json' })
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = filename
+        a.click()
+        URL.revokeObjectURL(url)
+    }
 
-    importFromJSON() {}
+    importFromJSON() {
+        const input = document.createElement('input')
+        input.type = 'file'
+        input.accept = 'application/json'
+        const reader = new FileReader()
+        reader.addEventListener('load', () => {
+            const json = reader.result
+            if(!json) {return}
+            const projects: IProject[] = JSON.parse(json as string)
+            for(const project of projects) {
+                try {
+                    this.newProject(project)
+                }catch(error){
+                    console.log(error);
+                    
+                }
+            }
+        })
+        input.addEventListener('change', () => {
+            const filesList = input.files
+            if(!filesList) {return}
+            reader.readAsText(filesList[0])
+        })
+        input.click()
+    }
 }

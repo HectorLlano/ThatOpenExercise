@@ -252,6 +252,24 @@ input:focus, textarea:focus, select:focus {
     background-color: rgb(73, 167, 73);
 }
 
+/* Alert Popup message */
+
+.alert-popup {
+    width: 450px;
+    border-radius: 10px;
+    background-color: var(--background-100);
+    color: white;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.alert-buttons {
+    display: flex;
+    justify-content: end;
+}
+
 /* Project Details Page */
 
 .dashboard-card {
