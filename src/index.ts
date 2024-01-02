@@ -85,6 +85,17 @@ if(projectForm && projectForm instanceof HTMLFormElement) {
     console.warn("The project form was not found. Check the ID!");
 }
 
+//Vuelve a projects-list cuando click on side bar
+const projectsList = document.getElementById("projects-side-list") as HTMLLIElement
+projectsList.addEventListener('click', () => {
+    const projectsPage = document.getElementById("projects-page")
+    const detailsPage = document.getElementById("project-details")
+    if(!projectsPage || !detailsPage) {return}
+    projectsPage.style.display = "flex"
+    detailsPage.style.display = "none"
+})
+
+
 //Ejecuta el exportado del los proyectos al hacer click en el icono
 const exportProjectBtn = document.getElementById("export-projects-btn")
 if(exportProjectBtn) {
