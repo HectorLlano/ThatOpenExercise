@@ -23,10 +23,47 @@ export class ProjectsManager {
             if(!projectsPage || !detailsPage) {return}
             projectsPage.style.display = "none"
             detailsPage.style.display = "flex"
+            this.setDetailsPage(project)
         })
         this.ui.append(project.ui)
         this.list.push(project)
         return project
+    }
+
+    private setDetailsPage(project: Project) {
+        const detailsPage = document.getElementById("project-details")
+        if(!detailsPage) {return}
+        const name = detailsPage.querySelector("[data-project-info='name']")
+        if(name) {
+            name.textContent = project.name
+        }
+        const description = detailsPage.querySelector("[data-project-info='description']")
+        if(description) {
+            description.textContent = project.description
+        }
+        const projectName = detailsPage.querySelector("[data-project-info='project-name']")
+        if(projectName) {
+            projectName.textContent = project.name
+        }
+        const projectDescription = detailsPage.querySelector("[data-project-info='project-description']")
+        if(projectDescription) {
+            projectDescription.textContent = project.description
+        }
+        const projectStatus = detailsPage.querySelector("[data-project-info='project-status']")
+        if(projectStatus) {
+            projectStatus.textContent = project.status
+        }
+        const projectRole = detailsPage.querySelector("[data-project-info='project-role']")
+        if(projectRole) {
+            projectRole.textContent = project.userRole
+        }
+        const projectFinishDate = detailsPage.querySelector("[data-project-info='project-finishDate']")
+        if(projectFinishDate) {
+            const day = project.finishDate.getUTCDay()
+            const month = project.finishDate.getUTCMonth() + 1
+            const year = project.finishDate.getUTCFullYear()
+            projectFinishDate.textContent = year.toString() + "/" + month.toString() + "/" + day.toString()
+        }
     }
 
     getProject(id: string) {
