@@ -6,6 +6,16 @@ export class ProjectsManager {
 
     constructor(container: HTMLElement) {
         this.ui = container
+
+        // this part is temporal so we don't have to click every time we save the code
+        const project = this.newProject({
+            name: "Default Project",
+            description: "This is just a default app project",
+            status: "Architect",
+            userRole: "Pending",
+            finishDate: new Date()
+        })
+        project.ui.click()
     }
 
     newProject(data: IProject) {
