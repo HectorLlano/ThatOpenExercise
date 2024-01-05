@@ -2,6 +2,7 @@ import * as THREE from "three"
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls"
 import { IProject, ProjectStatus, UserRole } from "./class/Project.ts"
 import { ProjectsManager } from "./class/ProjectsManager.ts"
+import * as OBC from "openbim-components"
 
 // Create a toggleModal function
 function toggleModal(id: string) {
@@ -115,43 +116,63 @@ if(importProjectsBtn) {
 }
 
 //ThreeJS Viewer
-const scene = new THREE.Scene()
+// const scene = new THREE.Scene()
 
-const viewerContainer = document.getElementById("viewer-container") as HTMLElement
-const camera = new THREE.PerspectiveCamera(75)
-camera.position.z = 5
+// const viewerContainer = document.getElementById("viewer-container") as HTMLElement
+// const camera = new THREE.PerspectiveCamera(75)
+// camera.position.z = 5
 
-const renderer = new THREE.WebGLRenderer({alpha: true, antialias: true})
-viewerContainer.append(renderer.domElement)
+// const renderer = new THREE.WebGLRenderer({alpha: true, antialias: true})
+// viewerContainer.append(renderer.domElement)
 
-function resizeViewer() {
-    const containerDimensions = viewerContainer.getBoundingClientRect()
-    renderer.setSize(containerDimensions.width, containerDimensions.height)
-    const aspectRatio = containerDimensions.width / containerDimensions.height
-    camera.aspect = aspectRatio
-    camera.updateProjectionMatrix()
-}
+// function resizeViewer() {
+//     const containerDimensions = viewerContainer.getBoundingClientRect()
+//     renderer.setSize(containerDimensions.width, containerDimensions.height)
+//     const aspectRatio = containerDimensions.width / containerDimensions.height
+//     camera.aspect = aspectRatio
+//     camera.updateProjectionMatrix()
+// }
 
-window.addEventListener("resize", resizeViewer)
+// window.addEventListener("resize", resizeViewer)
 
-resizeViewer()
+// resizeViewer()
 
 const boxGeometry = new THREE.BoxGeometry()
 const material = new THREE.MeshStandardMaterial()
 const cube = new THREE.Mesh(boxGeometry, material)
 
-const directionalLight = new THREE.DirectionalLight()
-const ambientLight = new THREE.AmbientLight()
-ambientLight.intensity = 0.4
+// const directionalLight = new THREE.DirectionalLight()
+// const ambientLight = new THREE.AmbientLight()
+// ambientLight.intensity = 0.4
 
-scene.add(cube, directionalLight, ambientLight)
+// scene.add(cube, directionalLight, ambientLight)
 
-const cameraControls = new OrbitControls(camera, viewerContainer)
+// const cameraControls = new OrbitControls(camera, viewerContainer)
 
+// function renderScene() {
+//     renderer.render(scene, camera)
+//     window.requestAnimationFrame(renderScene)
+// }
 
-function renderScene() {
-    renderer.render(scene, camera)
-    window.requestAnimationFrame(renderScene)
-}
+// renderScene()
 
-renderScene()
+// setting up the scene wiht openbim components
+const viewer = new OBC.Components()
+
+const sceneComponent = new OBC.SimpleScene(viewer)
+sceneComponent.setup()
+viewer.scene = sceneComponent
+const scene = sceneComponent.get()
+scene.background = null
+
+const viewerContainer = document.getElementById("viewer-container") as HTMLDivElement
+const rendererComponent = new OBC.SimpleRenderer(viewer, viewerContainer)
+viewer.renderer = rendererComponent
+
+const cameraComponent = new OBC.OrthoPerspectiveCamera(viewer)
+viewer.camera = cameraComponent
+
+viewer.init()
+cameraComponent.updateAspect()
+
+scene.add(cube)
