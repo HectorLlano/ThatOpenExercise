@@ -115,48 +115,8 @@ if(importProjectsBtn) {
     })
 }
 
-//ThreeJS Viewer
-// const scene = new THREE.Scene()
+//OpenBIM Components Viewer (this part simplify threeJS functionality)
 
-// const viewerContainer = document.getElementById("viewer-container") as HTMLElement
-// const camera = new THREE.PerspectiveCamera(75)
-// camera.position.z = 5
-
-// const renderer = new THREE.WebGLRenderer({alpha: true, antialias: true})
-// viewerContainer.append(renderer.domElement)
-
-// function resizeViewer() {
-//     const containerDimensions = viewerContainer.getBoundingClientRect()
-//     renderer.setSize(containerDimensions.width, containerDimensions.height)
-//     const aspectRatio = containerDimensions.width / containerDimensions.height
-//     camera.aspect = aspectRatio
-//     camera.updateProjectionMatrix()
-// }
-
-// window.addEventListener("resize", resizeViewer)
-
-// resizeViewer()
-
-const boxGeometry = new THREE.BoxGeometry()
-const material = new THREE.MeshStandardMaterial()
-const cube = new THREE.Mesh(boxGeometry, material)
-
-// const directionalLight = new THREE.DirectionalLight()
-// const ambientLight = new THREE.AmbientLight()
-// ambientLight.intensity = 0.4
-
-// scene.add(cube, directionalLight, ambientLight)
-
-// const cameraControls = new OrbitControls(camera, viewerContainer)
-
-// function renderScene() {
-//     renderer.render(scene, camera)
-//     window.requestAnimationFrame(renderScene)
-// }
-
-// renderScene()
-
-// setting up the scene wiht openbim components
 const viewer = new OBC.Components()
 
 const sceneComponent = new OBC.SimpleScene(viewer)
@@ -166,13 +126,59 @@ const scene = sceneComponent.get()
 scene.background = null
 
 const viewerContainer = document.getElementById("viewer-container") as HTMLDivElement
-const rendererComponent = new OBC.SimpleRenderer(viewer, viewerContainer)
+const rendererComponent = new OBC.PostproductionRenderer(viewer, viewerContainer)
 viewer.renderer = rendererComponent
 
 const cameraComponent = new OBC.OrthoPerspectiveCamera(viewer)
 viewer.camera = cameraComponent
 
+const raycasterComponent = new OBC.SimpleRaycaster(viewer)
+viewer.raycaster = raycasterComponent
+
 viewer.init()
 cameraComponent.updateAspect()
+rendererComponent.postproduction.enabled = true
 
-scene.add(cube)
+const ifcLoader = new OBC.FragmentIfcLoader(viewer)
+ifcLoader.settings.wasm = {
+    path: "http://unpkg.com/web-ifc@0.0.43/",
+    absolute: true
+}
+
+const highlighter = new OBC.FragmentHighlighter(viewer)
+highlighter.setup()
+
+const classifier = new OBC.FragmentClassifier(viewer)
+const classificationWindow = new OBC.FloatingWindow(viewer)
+viewer.ui.add(classificationWindow)
+classificationWindow.title = "Model Groups"
+
+async function createModelTree() {
+    const fragmentTree = new OBC.FragmentTree(viewer)
+    await fragmentTree.init()
+    await fragmentTree.update(["model", "storeys", "entities"])
+    fragmentTree.onHovered.add((fragmentMap) => {
+        highlighter.highlightByID("hover", fragmentMap)
+    })
+    fragmentTree.onSelected.add((fragmentMap) => {
+        highlighter.highlightByID("select", fragmentMap)
+    })
+    const tree = fragmentTree.get().uiElement.get("tree")
+    return tree
+}
+
+ifcLoader.onIfcLoaded.add(async (model) => {
+    highlighter.update()
+    classifier.byModel(model.name, model)
+    classifier.byStorey(model)    
+    classifier.byEntity(model)
+    const tree = await createModelTree()
+    await classificationWindow.slots.content.dispose(true)
+    classificationWindow.addChild(tree)
+})
+
+const toolbar = new OBC.Toolbar(viewer)
+toolbar.addChild(
+    ifcLoader.uiElement.get("main")
+)
+viewer.ui.addToolbar(toolbar)
