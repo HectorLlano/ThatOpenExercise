@@ -4,6 +4,7 @@ import { IProject, ProjectStatus, UserRole } from "./class/Project.ts"
 import { ProjectsManager } from "./class/ProjectsManager.ts"
 import * as OBC from "openbim-components"
 import { FragmentsGroup } from "bim-fragment"
+import { TodoCreator } from "./bim-components/TodoCreator/index.ts"
 
 // Create a toggleModal function
 function toggleModal(id: string) {
@@ -151,6 +152,7 @@ function exportFragments(model: FragmentsGroup) {
     a.download = `${model.name.replace(".ifc", "")}.frag`
     a.click()
     URL.revokeObjectURL(url)
+    console.log("done fragments")
 }
 
 function exportProperties(model: FragmentsGroup) {
@@ -162,6 +164,8 @@ function exportProperties(model: FragmentsGroup) {
     a.download = `${model.name.replace(".ifc", "")}_data`
     a.click()
     URL.revokeObjectURL(url)
+    console.log("done properties");
+    
 }
 
 const ifcLoader = new OBC.FragmentIfcLoader(viewer)
@@ -237,6 +241,7 @@ async function onModelLoaded (model: FragmentsGroup) {
 }
 
 ifcLoader.onIfcLoaded.add(async (model) => {
+    console.log(model)
     exportFragments(model)
     exportProperties(model)
     onModelLoaded(model)
@@ -269,12 +274,15 @@ importFragmentBtn.onClick.add(() => {
     input.click()
 })
 
+const todoCreator = new TodoCreator(viewer)
+
 const toolbar = new OBC.Toolbar(viewer)
 toolbar.addChild(
     ifcLoader.uiElement.get("main"),
     classificationBtn,
     propertiesProcessor.uiElement.get("main"),
     importFragmentBtn,
-    fragmentManager.uiElement.get("main")
+    fragmentManager.uiElement.get("main"),
+    todoCreator.uiElement.get("activationButton")
 )
 viewer.ui.addToolbar(toolbar)
